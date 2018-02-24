@@ -27,8 +27,10 @@ for n in binary:
 
 #print(chars)
 str1 = ''.join(str(e) for e in chars)
-print(str1)
+#print(str1)
 
+cleaned_data = str1.split(',')
+print(cleaned_data)
 
 
 """df1 = pd.read_json("https://data.cityofnewyork.us/api/views/kku6-nxdu")

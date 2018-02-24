@@ -1,0 +1,7 @@
+to push
+git add .
+git commit -m "message"
+git push
+login stuff if necessary
+
+git pull #to get stuff

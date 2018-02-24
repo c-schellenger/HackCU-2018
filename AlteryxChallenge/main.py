@@ -1,4 +1,4 @@
-
+import pandas as pd
 
 
 
@@ -20,8 +20,16 @@ while data:
 
 chars = []
 for n in binary:
-    chars.append(chr(int(n, 2)))
+    if chr(int(n, 2)) == '\x9e':
+        chars.append(':')
+    else:
+        chars.append(chr(int(n, 2)))
 
 #print(chars)
 str1 = ''.join(str(e) for e in chars)
 print(str1)
+
+
+
+"""df1 = pd.read_json("https://data.cityofnewyork.us/api/views/kku6-nxdu")
+print(df1)"""

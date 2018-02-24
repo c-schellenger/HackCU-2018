@@ -25,36 +25,47 @@ str1 = ''.join(str(e) for e in chars)
 #print(str1)
 
 cleaned_data = str1.split(',')
-print(cleaned_data)
+#print(cleaned_data)
 
 d = {'url' : cleaned_data[0::3], 'query' : cleaned_data[1::3], 'value' : cleaned_data[2::3]}
 
 df = pd.DataFrame(d)
-print(df)
+#print(df)
 
 decrypted = []
 
 #"""
 for index, row in df.iterrows():
     url = row['url']
+    print("Retrieving from", url)
     query = row['query'].split(".")
-    print(url)
-    print(query)
+    #print("query:", query)
+    value = row['value']
+    #print(url)
+    #print(query)
     with urllib.request.urlopen(url) as url:
         jsondata = json.loads(url.read().decode())
         """query_result = jsondata[query[0]]
         query.pop(0)
         #print(query_result)
         print(query)"""
+        query_result = jsondata
         while query:
-            #try:
-            print(query)
-            #query_result = jsondata[int(query[0])]
-            #except ValueError:
-            query_result = jsondata[query[0]]
+            try:
+                query_result = query_result[query[0]]
+            except TypeError:
+                query_result = query_result[int(query[0])]
             query.pop(0)
-            print(query_result)
+            #print(query_result)
+        #print("result string:", query_result)
+        #print("value:", value)
         decrypted.append(query_result)
+        #print("decrypted char:", str(query_result)[int(value)])
+print(decrypted)
+
+outFile = open("decryptedout.txt", 'w')
+outFile.write(decrypted)
+outFile.close()
 """
 with urllib.request.urlopen("https://data.cityofnewyork.us/api/views/kku6-nxdu") as url:
         jsondata = json.loads(url.read().decode())

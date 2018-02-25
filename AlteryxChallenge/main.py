@@ -69,8 +69,8 @@ for index, row in df.iterrows():
                 #print(query_result)
             #print("result string:", query_result)
             #print("value:", value)
-            decrypted.append(query_result)
-            outFile.write(str(query_result))
+            decrypted.append(str(query_result)[:int(value)])
+            outFile.write(str(query_result)[:int(value)])
             #print("decrypted char:", str(query_result)[int(value)])
 print(decrypted)
 

@@ -33,13 +33,15 @@ df = pd.DataFrame(d)
 #print(df)
 
 decrypted = []
-
+outFile = open('decrptedout.txt','w')
 #"""
 for index, row in df.iterrows():
     url = row['url']
     print("Retrieving from", url)
+    querytmp = row['query']
+    print(querytmp)
     query = row['query'].split(".")
-    #print("query:", query)
+    print("query:", query)
     value = row['value']
     #print(url)
     #print(query)
@@ -50,21 +52,28 @@ for index, row in df.iterrows():
         #print(query_result)
         print(query)"""
         query_result = jsondata
-        while query:
-            try:
-                query_result = query_result[query[0]]
-            except TypeError:
-                query_result = query_result[int(query[0])]
-            query.pop(0)
-            #print(query_result)
-        #print("result string:", query_result)
-        #print("value:", value)
-        decrypted.append(query_result)
-        #print("decrypted char:", str(query_result)[int(value)])
+        if query[0] == "6r9a-dfdj":
+            decrypted.append(query[0])
+        elif querytmp =="columns.0.cachedContents.top.6.count":
+            decrypted.append("")
+        elif querytmp =="columns.0.cachedContents.top.19.count":
+            decrypted.append("")
+
+        else:
+            while query:
+                try:
+                    query_result = query_result[query[0]]
+                except TypeError:
+                    query_result = query_result[int(query[0])]
+                query.pop(0)
+                #print(query_result)
+            #print("result string:", query_result)
+            #print("value:", value)
+            decrypted.append(query_result)
+            outFile.write(str(query_result))
+            #print("decrypted char:", str(query_result)[int(value)])
 print(decrypted)
 
-outFile = open("decryptedout.txt", 'w')
-outFile.write(decrypted)
 outFile.close()
 """
 with urllib.request.urlopen("https://data.cityofnewyork.us/api/views/kku6-nxdu") as url:

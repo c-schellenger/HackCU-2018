@@ -20,9 +20,9 @@ for n in binary:
     else:
         chars.append(chr(int(n, 2)))
 
-#print(chars)
+print(chars)
 str1 = ''.join(str(e) for e in chars)
-#print(str1)
+print(str1)
 
 cleaned_data = str1.split(',')
 #print(cleaned_data)
@@ -34,6 +34,8 @@ df = pd.DataFrame(d)
 
 decrypted = []
 outFile = open('decrptedout.txt','w')
+outFile2 = open('indexVar.txt','w')
+pointDelim = 0
 #"""
 for index, row in df.iterrows():
     url = row['url']
@@ -70,8 +72,13 @@ for index, row in df.iterrows():
             #print("result string:", query_result)
             #print("value:", value)
             decrypted.append(str(query_result)[:int(value)])
-            outFile.write(str(query_result)[:int(value)])
+            if(int(value) >= len(str(query_result))):
+                outFile.write(' ')
+            else:
+                outFile.write(str(query_result)[int(value)])
             #print("decrypted char:", str(query_result)[int(value)])
+
+            outFile2.write(str(value))
 print(decrypted)
 
 outFile.close()
